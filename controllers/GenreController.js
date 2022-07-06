@@ -8,6 +8,15 @@ const GenreController = {
       })
       .catch((err) => console.error(err));
   },
+  async getAll(req, res) {
+    try {
+      const genres = await Genre.findAll();
+      res.send(genres);
+    } catch (error) {
+      console.error(error);
+      res.send(error);
+    }
+  },
 };
 
 module.exports = GenreController;

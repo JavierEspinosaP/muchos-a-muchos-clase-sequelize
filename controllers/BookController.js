@@ -4,8 +4,8 @@ const BookController = {
   insert(req, res) {
     Book.create(req.body)
       .then((book) => {
-        book.addGenre(req.body.GenreId);//añade el genero en la tabla intermedia
-        res.send(book);
+        book.addGenre(req.body.GenreId); //añade el genero en la tabla intermedia
+        res.status(201).send(book);
       })
       .catch((err) => console.error(err));
   },
@@ -37,6 +37,7 @@ const BookController = {
       });
       res.send({
         message: "The book with id " + id + " has been removed",
+        id: req.params.id,
         book,
         genre,
       });
@@ -55,7 +56,7 @@ const BookController = {
         }
       );
       const book = await Book.findByPk(req.params.id);
-      book.setGenres(req.body.GenreId);//actualiza el género en la tabla intermedia
+      book.setGenres(req.body.GenreId); //actualiza el género en la tabla intermedia
       res.send("Libro actualizado con éxito");
     } catch (error) {
       console.error(error);
