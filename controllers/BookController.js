@@ -57,12 +57,25 @@ const BookController = {
       );
       const book = await Book.findByPk(req.params.id);
       book.setGenres(req.body.GenreId); //actualiza el género en la tabla intermedia
-      res.send("Libro actualizado con éxito");
+      res.send({message:"Libro actualizado con éxito",book});
     } catch (error) {
       console.error(error);
       res
         .status(500)
         .send({ message: "no ha sido posible actualizado el libro" });
+    }
+  },
+  async getById(req, res) {
+    try {
+      const book = await Book.findByPk(req.params.id, {
+        include: [
+          { model: Genre, attributes: ["id"], through: { attributes: [] } },
+        ],
+      });
+      res.send(book)
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ message: "no ha sido posible obtener el libro" });
     }
   },
 };
