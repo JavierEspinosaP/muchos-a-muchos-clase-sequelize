@@ -1,5 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
+
 module.exports = (sequelize, DataTypes) => {
   class Book extends Model {
     static associate(models) {
@@ -18,5 +19,8 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "Book",
     }
   );
+  // Book.sync({
+  //   force:true
+  // })
   return Book;
 };

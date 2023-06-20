@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      models.Genre.belongsToMany(models.Book, { through: GenreBook });
+      models.Book.belongsToMany(models.Genre, { through: GenreBook });
     }
   }
   GenreBook.init({
@@ -20,5 +22,9 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'GenreBook',
   });
+  
+  // No recomendado hacer 'force: true' en producción
+  // GenreBook.sync({ force: true })
+  
   return GenreBook;
 };

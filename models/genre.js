@@ -16,5 +16,9 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Genre',
   });
+
+  // Genre.sync({
+  //   force:true
+  // })
   return Genre;
 };
